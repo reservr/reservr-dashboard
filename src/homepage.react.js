@@ -1,5 +1,10 @@
 import React from "react";
+import withStore from "./withStore";
 
-const HomePage = () => ( <div>Home page</div> );
+const HomePage = ( props ) => ( <div>Home page { props.isLoggedIn ? "tru" : "fals" }</div> );
 
-export default HomePage;
+const mapStoreToProps = store => ( {
+    isLoggedIn: store.getLoggedIn(),
+} );
+
+export default withStore( mapStoreToProps )( HomePage );

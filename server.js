@@ -1,25 +1,30 @@
 import React from "react";
 import express from "express";
-import path from "path";
 
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router";
 import App from "./src/app";
+import StoreContext from "./src/storeContext";
+import createStore from "./src/store";
 
-const PORT = 8082
+const PORT = 8082;
 const app = express( );
 app.use( express.static( `${ __dirname }/dist` ) );
 
 app.get( "/*", function( req, res ) {
+    const store = createStore();
     const context = {};
-
-    const html = ReactDOMServer.renderToString(
-        <StaticRouter location={req.url} context={context}>
-            <App />
-        </StaticRouter>
+    const reactApp = (
+        <StoreContext.Provider store={ store }>
+            <StaticRouter location={ req.url } context={ context }>
+                <App />
+            </StaticRouter>
+        </StoreContext.Provider>
     );
 
-    res.send(`<!DOCTYPE html>
+    const html = ReactDOMServer.renderToString( reactApp );
+
+    res.send( `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -29,9 +34,9 @@ app.get( "/*", function( req, res ) {
     </head>
     <body>
         <h1>Dashboard</h1>
-        <div class="react-root">${html}</div>
+        <div class="react-root">${ html }</div>
         <script src="/app.bundle.js"></script>
     </body>
-    </html>`)
-});
+    </html>` );
+} );
 app.listen( PORT );
