@@ -1,4 +1,5 @@
 const SUCCESS = 200;
+const ERROR = 400;
 const SERVER_ERROR = 500;
 
 const parseResponse = ( status, res ) => {
@@ -7,8 +8,11 @@ const parseResponse = ( status, res ) => {
     }
 
     return new Promise( ( resolve, reject ) => {
-        if ( status >= SUCCESS ) {
+        if ( status >= SUCCESS && status < ERROR ) {
             res.then( response => resolve( response ) );
+        } else if ( status >= ERROR && status < SERVER_ERROR ) {
+            // TODO: show error to user
+            res.then( response => reject( new Error( response.message ) ) );
         } else {
             res.then( response => reject( new Error( response ) ) );
         }

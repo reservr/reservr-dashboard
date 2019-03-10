@@ -12,6 +12,22 @@ const login = ( values ) => {
     return fetchWrapper( url, options );
 };
 
+const signup = ( values ) => {
+    const url = `${ baseUrl }/signup`;
+    const options = {
+        method: "POST",
+        body: JSON.stringify( values ),
+    };
+    return fetchWrapper( url, options );
+};
+
+const logout = () => {
+    const url = `${ baseUrl }/logout`;
+    return fetchWrapper( url, {} );
+};
+
 export default {
     login,
+    signup,
+    logout,
 };
