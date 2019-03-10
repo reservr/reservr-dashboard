@@ -4,7 +4,7 @@ import HomePage from "./homepage.react";
 import Signup from "./signup.react";
 import Login from "./login.react";
 import Dashboard from "./dashboard.react";
-import withAuthentication from "./withAuthentication";
+import withAuthentication from "./decorators/withAuthentication";
 
 const App = () => (
     <div>

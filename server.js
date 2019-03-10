@@ -5,8 +5,8 @@ import cookieParser from "cookie-parser";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router";
 import App from "./src/app";
-import StoreContext from "./src/storeContext";
-import createStore from "./src/store";
+import StoreContext from "./src/common/storeContext";
+import createStore from "./src/services/store";
 
 const PORT = 8082;
 const app = express( );

@@ -1,4 +1,4 @@
-import fetchWrapper from "./fetchWrapper";
+import fetchWrapper from "../helpers/fetchWrapper";
 // import responseHelper from "./responseHelper";
 
 const baseUrl = "http://localhost:8080";

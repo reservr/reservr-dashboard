@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./app";
-import StoreContext from "./storeContext";
-import createStore from "./store";
+import StoreContext from "./common/storeContext";
+import createStore from "./services/store";
 
 const store = createStore();
 if ( window.RESERVR_STORE_INITIAL_DATA ) {

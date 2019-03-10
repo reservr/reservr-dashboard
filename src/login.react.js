@@ -1,8 +1,8 @@
 import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
-import ApiService from "./apiService";
-import withStore from "./withStore";
+import ApiService from "./services/apiService";
+import withStore from "./decorators/withStore";
 
 const INITIAL_VALUES = { username: "", password: "" };
 

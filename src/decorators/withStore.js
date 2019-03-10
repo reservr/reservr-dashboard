@@ -1,5 +1,5 @@
 import React from "react";
-import StoreContext from "./storeContext";
+import StoreContext from "../common/storeContext";
 
 const withStore = ( mapStoreToProps ) => ( Component ) => {
     const computeProps = ( store, props ) => {

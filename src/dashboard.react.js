@@ -1,5 +1,5 @@
 import React from "react";
-import withStore from "./withStore";
+import withStore from "./decorators/withStore";
 
 const Dashboard = () => ( <div>dashboard page</div> );
 
