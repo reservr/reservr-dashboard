@@ -4,6 +4,7 @@ import HomePage from "./homepage.react";
 import Signup from "./signup.react";
 import Login from "./login.react";
 import Dashboard from "./dashboard.react";
+import withAuthentication from "./withAuthentication";
 
 const App = () => (
     <div>
@@ -24,7 +25,7 @@ const App = () => (
         <Route path="/" exact component={ HomePage } />
         <Route path="/signup" exact component={ Signup } />
         <Route path="/login" exact component={ Login } />
-        <Route path="/dashboard" exact component={ Dashboard } />
+        <Route path="/dashboard" exact component={ withAuthentication( Dashboard ) } />
     </div>
 );
 

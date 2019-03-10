@@ -6,22 +6,18 @@ const { Provider, Consumer } = React.createContext( {
 } );
 
 class StoreProvider extends React.Component {
-    constructor( props ) {
-        super();
-        this.state = {
-            store: props.store,
-            updateStore: this.updateStore, // eslint-disable-line react/no-unused-state
-        };
-
-        this.updateStore = this.updateStore.bind( this );
-    }
     // eslint-disable-next-line react/sort-comp
-    updateStore( key, value ) {
+    updateStore = ( key, value ) => {
         this.state.store.setValue( key, value );
         this.setState( {
             store: this.state.store,
         } );
-    }
+    };
+
+    state = {
+        store: this.props.store,
+        updateStore: this.updateStore, // eslint-disable-line react/no-unused-state
+    };
 
     render() {
         return <Provider value={ this.state }>{this.props.children}</Provider>;

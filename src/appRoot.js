@@ -5,8 +5,10 @@ import App from "./app";
 import StoreContext from "./storeContext";
 import createStore from "./store";
 
+const store = createStore();
+
 const RoutedApp = () => (
-    <StoreContext.Provider store={ createStore() }>
+    <StoreContext.Provider store={ store }>
         <Router>
             <App />
         </Router>

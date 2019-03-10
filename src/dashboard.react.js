@@ -1,5 +1,10 @@
 import React from "react";
+import withStore from "./withStore";
 
 const Dashboard = () => ( <div>dashboard page</div> );
 
-export default Dashboard;
+const mapStoreToProps = store => ( {
+    isLoggedIn: store.getLoggedIn(),
+} );
+
+export default withStore( mapStoreToProps )( Dashboard );

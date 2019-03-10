@@ -79,4 +79,4 @@ const mapStoreToProps = ( store ) => ( {
     isLoggedIn: store.getLoggedIn(),
 } );
 
-export default withRouter( withStore( mapStoreToProps )( Login ) );
+export default withStore( mapStoreToProps )( withRouter( Login ) );
