@@ -1,14 +1,15 @@
 import React from "react";
 import { Formik } from "formik";
+import { withRouter } from "react-router-dom";
 import ApiService from "./apiService";
 
 const INITIAL_VALUES = { username: "", password: "" };
 
-const Login = () => (
+const Login = ( props ) => (
     <Formik
         initialValues={ INITIAL_VALUES }
         validate={ validate }
-        onSubmit={ onSubmit }
+        onSubmit={ onSubmit( props.history ) }
     >
         {loginForm}
     </Formik>
@@ -63,10 +64,13 @@ function validate ( values ) {
     return errors;
 }
 
-function onSubmit( values, { setSubmitting } ) {
-    ApiService.login( values ).then( res => {
-        setSubmitting( false );
-        console.log( res );
-    } );
+function onSubmit( history ) {
+    return ( values, { setSubmitting } ) => {
+        ApiService.login( values ).then( res => {
+            setSubmitting( false );
+            console.log( res );
+            history.push( "/dashboard" );
+        } );
+    };
 }
-export default Login;
+export default withRouter( Login );
