@@ -2,6 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import ApiService from "./apiService";
+import withStore from "./withStore";
 
 const INITIAL_VALUES = { username: "", password: "" };
 
@@ -9,7 +10,7 @@ const Login = ( props ) => (
     <Formik
         initialValues={ INITIAL_VALUES }
         validate={ validate }
-        onSubmit={ onSubmit( props.history ) }
+        onSubmit={ onSubmit( props.history, props.updateStore ) }
     >
         {loginForm}
     </Formik>
@@ -64,13 +65,18 @@ function validate ( values ) {
     return errors;
 }
 
-function onSubmit( history ) {
+function onSubmit( history, updateStore ) {
     return ( values, { setSubmitting } ) => {
-        ApiService.login( values ).then( res => {
+        ApiService.login( values ).then( () => {
             setSubmitting( false );
-            console.log( res );
+            updateStore( "isLoggedIn", true );
             history.push( "/dashboard" );
         } );
     };
 }
-export default withRouter( Login );
+
+const mapStoreToProps = ( store ) => ( {
+    isLoggedIn: store.getLoggedIn(),
+} );
+
+export default withRouter( withStore( mapStoreToProps )( Login ) );
