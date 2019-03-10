@@ -6,7 +6,12 @@ import StoreContext from "./storeContext";
 import createStore from "./store";
 
 const store = createStore();
-
+if ( window.RESERVR_STORE_INITIAL_DATA ) {
+    const serverState = window.RESERVR_STORE_INITIAL_DATA;
+    if ( serverState.isLoggedIn ) {
+        store.setValue( "isLoggedIn", serverState.isLoggedIn );
+    }
+}
 const RoutedApp = () => (
     <StoreContext.Provider store={ store }>
         <Router>

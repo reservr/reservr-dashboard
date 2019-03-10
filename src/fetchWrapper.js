@@ -20,6 +20,7 @@ const fetchWrapper = ( url, opts ) => {
         method: "GET",
         mode: "cors",
         cache: "default",
+        credentials: "include",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
