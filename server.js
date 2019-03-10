@@ -16,6 +16,7 @@ app.use( cookieParser() );
 app.get( "/*", function( req, res ) {
     const store = createStore();
 
+    // TODO: check with API if user is logged in
     if ( req.cookies[ "connect.sid" ] ) {
         store.setValue( "isLoggedIn", true );
     }
