@@ -5,6 +5,7 @@ import Signup from "./signup.react";
 import Login from "./login.react";
 import Dashboard from "./dashboard.react";
 import withAuthentication from "./decorators/withAuthentication";
+import "./styles.css";
 
 const App = () => (
     <div>
