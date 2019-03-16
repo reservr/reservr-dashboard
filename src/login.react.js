@@ -28,29 +28,56 @@ function loginForm ( props ) {
     } = props;
 
     return (
-        <form onSubmit={ handleSubmit } autoComplete="on">
-            <input
-                type="email"
-                name="username"
-                onChange={ handleChange }
-                onBlur={ handleBlur }
-                value={ values.username }
-                autoComplete="email"
-            />
-            {errors.username && touched.username && errors.username}
-            <input
-                type="password"
-                name="password"
-                onChange={ handleChange }
-                onBlur={ handleBlur }
-                value={ values.password }
-                autoComplete="password"
-            />
-            {errors.password && touched.password && errors.password}
-            <button type="submit" disabled={ isSubmitting }>
-                    Submit
-            </button>
-        </form>
+        <div className="container grid-lg">
+            <div className="columns">
+                <div className="column col-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 col-mx-auto">
+                    <h4>Login</h4>
+                    <form onSubmit={ handleSubmit } autoComplete="on">
+                        <div className="form-group">
+                            <label
+                                className="form-label"
+                                htmlFor="input-example-1"
+                            >
+                                Email
+                            </label>
+                            <input
+                                id="email"
+                                type="email"
+                                name="username"
+                                className="form-input"
+                                onChange={ handleChange }
+                                onBlur={ handleBlur }
+                                value={ values.username }
+                                autoComplete="email"
+                            />
+                            {errors.username && touched.username && errors.username}
+                        </div>
+                        <div className="form-group">
+                            <label
+                                className="form-label"
+                                htmlFor="input-example-1"
+                            >
+                                Password
+                            </label>
+                            <input
+                                id="password"
+                                className="form-input"
+                                type="password"
+                                name="password"
+                                onChange={ handleChange }
+                                onBlur={ handleBlur }
+                                value={ values.password }
+                                autoComplete="password"
+                            />
+                            {errors.password && touched.password && errors.password}
+                        </div>
+                        <button type="submit" disabled={ isSubmitting } className="btn btn-primary">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>{/* .columns */}
+        </div>
     );
 }
 

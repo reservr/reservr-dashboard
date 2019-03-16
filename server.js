@@ -46,7 +46,6 @@ app.get( "/*", function( req, res ) {
         <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
-        <h1>Dashboard</h1>
         <div class="react-root">${ html }</div>
         <script>window.RESERVR_STORE_INITIAL_DATA = ${ JSON.stringify( RESERVR_STORE_INITIAL_DATA ) }</script>
         <script src="/app.bundle.js"></script>
