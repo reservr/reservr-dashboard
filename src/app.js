@@ -5,6 +5,7 @@ import Signup from "./signup.react";
 import Login from "./login.react";
 import Dashboard from "./dashboard.react";
 import withAuthentication from "./decorators/withAuthentication";
+import "../node_modules/spectre.css/dist/spectre.css";
 import "./styles.css";
 
 const App = () => (
