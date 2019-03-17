@@ -28,15 +28,15 @@ function loginForm ( props ) {
     } = props;
 
     return (
-        <div className="container grid-lg">
+        <div className="container grid-lg page-auth page-login">
             <div className="columns">
                 <div className="column col-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 col-mx-auto">
                     <h4>Login</h4>
                     <form onSubmit={ handleSubmit } autoComplete="on">
                         <div className="form-group">
                             <label
-                                className="form-label"
-                                htmlFor="input-example-1"
+                                assName="form-label"
+                                htmlFor="email"
                             >
                                 Email
                             </label>
@@ -55,7 +55,7 @@ function loginForm ( props ) {
                         <div className="form-group">
                             <label
                                 className="form-label"
-                                htmlFor="input-example-1"
+                                htmlFor="password"
                             >
                                 Password
                             </label>

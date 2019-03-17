@@ -2,3 +2,12 @@ body {
     font-size: 16px;
     font-family: Arial;
 }
+
+.page-auth h4 {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.page-auth .form-group-orgname {
+    margin-bottom: 30px;
+}
