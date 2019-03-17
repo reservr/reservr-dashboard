@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
 import { withRouter, Link } from "react-router-dom";
 import ApiService from "./services/apiService";
@@ -6,111 +6,117 @@ import withStore from "./decorators/withStore";
 
 const INITIAL_VALUES = { username: "", password: "", orgName: "" };
 
-const Signup = ( props ) => (
-    <Formik
-        initialValues={ INITIAL_VALUES }
-        validate={ validate }
-        onSubmit={ onSubmit( props.history, props.updateStore ) }
-    >
-        {signupForm}
-    </Formik>
-);
-
-function signupForm ( props ) {
-    const {
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-    } = props;
-
-    const userNameError = errors.username && touched.username;
-    const userNameErrorClass = userNameError && "has-error";
-
-    const orgNameError = errors.orgName && touched.orgName;
-    const orgNameErrorClass = orgNameError && "has-error";
-
+const Signup = ( props ) => {
+    const [ orgnameAvailability, setOrgnameAvailability ] = useState( "" );
     return (
-        <div className="container grid-lg page-auth page-signup">
-            <div className="columns">
-                <div className="column col-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 col-mx-auto">
-                    <h4>Signup</h4>
-                    <form onSubmit={ handleSubmit } autoComplete="on">
-                        <div className={ `form-group form-group-orgname ${ orgNameErrorClass }` }>
-                            <label
-                                className="form-label"
-                                htmlFor="org-name"
-                            >
-                                Organisation name:
-                            </label>
-                            <div className="input-group">
-                                <span className="input-group-addon">reservr.com/</span>
+        <Formik
+            initialValues={ INITIAL_VALUES }
+            validate={ validate }
+            onSubmit={ onSubmit( props.history, props.updateStore ) }
+        >
+            {signupForm( setOrgnameAvailability, orgnameAvailability )}
+        </Formik>
+    );
+};
+
+function signupForm ( setOrgnameAvailability, orgnameAvailability ) {
+    return props => {
+        const {
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+        } = props;
+
+        const userNameError = errors.username && touched.username;
+        const userNameErrorClass = userNameError && "has-error";
+
+        const orgNameError = errors.orgName && touched.orgName;
+        const orgNameErrorClass = orgNameError && "has-error";
+
+        const orgnameIcon = orgnameAvailability;
+
+        return (
+            <div className="container grid-lg page-auth page-signup">
+                <div className="columns">
+                    <div className="column col-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 col-mx-auto">
+                        <h4>Signup</h4>
+                        <form onSubmit={ handleSubmit } autoComplete="on">
+                            <div className={ `form-group form-group-orgname ${ orgNameErrorClass }` }>
+                                <label
+                                    className="form-label"
+                                    htmlFor="org-name"
+                                />
+                                <div className="input-group has-icon-right">
+                                    <span className="input-group-addon">reservr.com/</span>
+                                    <input
+                                        className="form-input"
+                                        id="org-name"
+                                        type="text"
+                                        name="orgName"
+                                        onChange={ handleChange }
+                                        onBlur={ customHandleBlur( handleBlur, setOrgnameAvailability ) }
+                                        value={ values.orgName }
+                                        placeholder="funny-bakers"
+                                    />
+                                    { orgnameIcon && ( <i className={ `form-icon ${ orgnameIcon }` } /> ) }
+                                </div>
+                                {orgNameError && ( <p className="form-input-hint">{ errors.orgName }</p> )}
+                            </div>
+
+                            <div className={ `form-group ${ userNameErrorClass }` }>
+                                <label
+                                    className="form-label"
+                                    htmlFor="email"
+                                >
+                                Email:
+                                </label>
                                 <input
                                     className="form-input"
-                                    id="org-name"
-                                    type="text"
-                                    name="orgName"
+                                    id="email"
+                                    type="email"
+                                    name="username"
                                     onChange={ handleChange }
                                     onBlur={ handleBlur }
-                                    value={ values.orgName }
-                                    placeholder="funny-bakers"
+                                    value={ values.username }
+                                    autoComplete="email"
                                 />
+                                {userNameError && ( <p className="form-input-hint">{ errors.username }</p> )}
                             </div>
-                            {orgNameError && ( <p className="form-input-hint">{ errors.orgName }</p> )}
-                        </div>
 
-                        <div className={ `form-group ${ userNameErrorClass }` }>
-                            <label
-                                className="form-label"
-                                htmlFor="email"
-                            >
-                                Email:
-                            </label>
-                            <input
-                                className="form-input"
-                                id="email"
-                                type="email"
-                                name="username"
-                                onChange={ handleChange }
-                                onBlur={ handleBlur }
-                                value={ values.username }
-                                autoComplete="email"
-                            />
-                            {userNameError && ( <p className="form-input-hint">{ errors.username }</p> )}
-                        </div>
-
-                        <div className="form-group">
-                            <label
-                                className="form-label"
-                                htmlFor="org-name"
-                            >
+                            <div className="form-group">
+                                <label
+                                    className="form-label"
+                                    htmlFor="org-name"
+                                >
                                 Password:
-                            </label>
-                            <input
-                                className="form-input"
-                                type="password"
-                                name="password"
-                                onChange={ handleChange }
-                                onBlur={ handleBlur }
-                                value={ values.password }
-                                autoComplete="password"
-                            />
-                            {errors.password && touched.password && errors.password}
-                        </div>
-                        <div className="clearfix">
-                            <button type="submit" disabled={ isSubmitting } className="float-right btn btn-primary">
+                                </label>
+                                <input
+                                    className="form-input"
+                                    type="password"
+                                    name="password"
+                                    onChange={ handleChange }
+                                    onBlur={ handleBlur }
+                                    value={ values.password }
+                                    autoComplete="password"
+                                />
+                                {errors.password && touched.password && errors.password}
+                            </div>
+                            <div className="clearfix">
+                                <button type="submit" disabled={ isSubmitting } className="float-right btn btn-primary">
                                 Submit
-                            </button>
-                            <Link to="/login" className="btn btn-link">Go to Login page</Link>
-                        </div>
-                    </form>
+                                </button>
+                                <Link to="/login" className="btn btn-link">Go to Login page</Link>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    };
 }
 
 function validate ( values ) {
@@ -136,6 +142,28 @@ function validate ( values ) {
     }
 
     return errors;
+}
+
+function customHandleBlur( handleBlur, setOrgnameAvailability ) {
+    return evt => {
+        const orgname = getSlug( evt.target.value );
+        if ( orgname.length >= 3 ) {
+            setOrgnameAvailability( "loading" );
+            ApiService.checkOrgNameAvailability( orgname ).then( ( res ) => {
+                if ( res.message === "success" && res.orgs === 0 ) {
+                    setOrgnameAvailability( "icon icon-check" );
+                }
+            } );
+        } else {
+            setOrgnameAvailability( "" );
+        }
+
+        handleBlur( evt );
+    };
+}
+
+function getSlug( orgname ) {
+    return orgname.toLowerCase().split( " " ).join( "-" );
 }
 
 function onSubmit( history, updateStore ) {

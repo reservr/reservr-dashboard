@@ -3,6 +3,11 @@ import fetchWrapper from "../helpers/fetchWrapper";
 
 const baseUrl = "http://localhost:8080";
 
+const checkOrgNameAvailability = ( orgname ) => {
+    const url = `${ baseUrl }/orgs?slug=${ orgname }`;
+    return fetchWrapper( url );
+};
+
 const login = ( values ) => {
     const url = `${ baseUrl }/login`;
     const options = {
@@ -27,6 +32,7 @@ const logout = () => {
 };
 
 export default {
+    checkOrgNameAvailability,
     login,
     signup,
     logout,
