@@ -5,6 +5,7 @@ import ApiService from "./services/apiService";
 import withStore from "./decorators/withStore";
 
 const INITIAL_VALUES = { username: "", password: "", orgName: "" };
+const MIN_ORGNAME_CHARACTER_LENGTH = 3;
 
 const Signup = ( props ) => {
     const [ orgnameAvailability, setOrgnameAvailability ] = useState( "" );
@@ -14,12 +15,12 @@ const Signup = ( props ) => {
             validate={ validate }
             onSubmit={ onSubmit( props.history, props.updateStore ) }
         >
-            {signupForm( setOrgnameAvailability, orgnameAvailability )}
+            {signupForm( setOrgnameAvailability, orgnameAvailability, props.messageCenter, props.updateStore )}
         </Formik>
     );
 };
 
-function signupForm ( setOrgnameAvailability, orgnameAvailability ) {
+function signupForm ( setOrgnameAvailability, orgnameAvailability, messageCenter, updateStore ) {
     return props => {
         const {
             values,
@@ -41,6 +42,12 @@ function signupForm ( setOrgnameAvailability, orgnameAvailability ) {
 
         return (
             <div className="container grid-lg page-auth page-signup">
+                { messageCenter.visible && (
+                    <div className={ `toast ${ messageCenter.type }` }>
+                        <button className="btn btn-clear float-right" onClick={ hideMessageCenter( updateStore ) } />
+                        { messageCenter.message }
+                    </div>
+                ) }
                 <div className="columns">
                     <div className="column col-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 col-mx-auto">
                         <h4>Signup</h4>
@@ -72,7 +79,7 @@ function signupForm ( setOrgnameAvailability, orgnameAvailability ) {
                                     className="form-label"
                                     htmlFor="email"
                                 >
-                                Email:
+                                    Email:
                                 </label>
                                 <input
                                     className="form-input"
@@ -92,7 +99,7 @@ function signupForm ( setOrgnameAvailability, orgnameAvailability ) {
                                     className="form-label"
                                     htmlFor="org-name"
                                 >
-                                Password:
+                                    Password:
                                 </label>
                                 <input
                                     className="form-input"
@@ -107,7 +114,7 @@ function signupForm ( setOrgnameAvailability, orgnameAvailability ) {
                             </div>
                             <div className="clearfix">
                                 <button type="submit" disabled={ isSubmitting } className="float-right btn btn-primary">
-                                Submit
+                                    Submit
                                 </button>
                                 <Link to="/login" className="btn btn-link">Go to Login page</Link>
                             </div>
@@ -116,6 +123,16 @@ function signupForm ( setOrgnameAvailability, orgnameAvailability ) {
                 </div>
             </div>
         );
+    };
+}
+
+function hideMessageCenter( updateStore ) {
+    return () => {
+        updateStore( "messageCenter", {
+            visible: false,
+            message: "",
+            type: "",
+        } );
     };
 }
 
@@ -133,7 +150,7 @@ function validate ( values ) {
         errors.orgName = "Required";
     }
 
-    if ( values.orgName.length < 3 ) {
+    if ( values.orgName.length < MIN_ORGNAME_CHARACTER_LENGTH ) {
         errors.orgName = "Organisation name must be at least 3 characters long";
     }
 
@@ -146,19 +163,25 @@ function validate ( values ) {
 
 function customHandleBlur( handleBlur, setOrgnameAvailability ) {
     return evt => {
+        evt.persist();
         const orgname = getSlug( evt.target.value );
-        if ( orgname.length >= 3 ) {
+        if ( orgname.length >= MIN_ORGNAME_CHARACTER_LENGTH ) {
             setOrgnameAvailability( "loading" );
             ApiService.checkOrgNameAvailability( orgname ).then( ( res ) => {
                 if ( res.message === "success" && res.orgs === 0 ) {
-                    setOrgnameAvailability( "icon icon-check" );
+                    setOrgnameAvailability( "icon icon-check text-success" );
                 }
+
+                if ( res.message === "success" && res.orgs > 0 ) {
+                    setOrgnameAvailability( "icon icon-cross text-error" );
+                }
+
+                handleBlur( evt );
             } );
         } else {
             setOrgnameAvailability( "" );
+            handleBlur( evt );
         }
-
-        handleBlur( evt );
     };
 }
 
@@ -173,11 +196,18 @@ function onSubmit( history, updateStore ) {
             setSubmitting( false );
             updateStore( "isLoggedIn", true );
             history.push( "/dashboard" );
+        } ).catch( err => {
+            setSubmitting( false );
+            updateStore( "messageCenter", {
+                visible: true,
+                message: err,
+                type: "toast-error",
+            } );
         } );
     };
 }
 const mapStoreToProps = ( store ) => ( {
-    isLoggedIn: store.getLoggedIn(),
+    messageCenter: store.getMessageCenter(),
 } );
 
 export default withStore( mapStoreToProps )( withRouter( Signup ) );

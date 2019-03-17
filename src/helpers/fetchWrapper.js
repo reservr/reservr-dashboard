@@ -11,8 +11,7 @@ const parseResponse = ( status, res ) => {
         if ( status >= SUCCESS && status < ERROR ) {
             res.then( response => resolve( response ) );
         } else if ( status >= ERROR && status < SERVER_ERROR ) {
-            // TODO: show error to user
-            res.then( response => reject( new Error( response.message ) ) );
+            res.then( response => reject( response.message ) );
         } else {
             res.then( response => reject( new Error( response ) ) );
         }

@@ -1,6 +1,11 @@
 export default function createStore() {
     const state = {
         isLoggedIn: false,
+        messageCenter: {
+            visible: false,
+            message: "",
+            type: "",
+        },
     };
 
     return {
@@ -10,6 +15,10 @@ export default function createStore() {
 
         getLoggedIn() {
             return state.isLoggedIn;
+        },
+
+        getMessageCenter() {
+            return state.messageCenter;
         },
     };
 }
