@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import ApiService from "./services/apiService";
 import withStore from "./decorators/withStore";
 
@@ -100,9 +100,12 @@ function signupForm ( props ) {
                             />
                             {errors.password && touched.password && errors.password}
                         </div>
-                        <button type="submit" disabled={ isSubmitting } className="btn btn-primary">
-                            Submit
-                        </button>
+                        <div className="clearfix">
+                            <button type="submit" disabled={ isSubmitting } className="float-right btn btn-primary">
+                                Submit
+                            </button>
+                            <Link to="/login" className="btn btn-link">Go to Login page</Link>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -122,6 +125,10 @@ function validate ( values ) {
 
     if ( !values.orgName ) {
         errors.orgName = "Required";
+    }
+
+    if ( values.orgName.length < 3 ) {
+        errors.orgName = "Organisation name must be at least 3 characters long";
     }
 
     if ( !values.password ) {
