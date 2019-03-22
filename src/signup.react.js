@@ -199,7 +199,7 @@ function getSlug( orgname ) {
 function onSubmit( history, updateStore ) {
     return ( values, { setSubmitting } ) => {
         const data = Object.assign( {}, { userType: "admin" }, values );
-        console.log( data );
+
         ApiService.signup( data ).then( () => {
             setSubmitting( false );
             updateStore( "isLoggedIn", true );
