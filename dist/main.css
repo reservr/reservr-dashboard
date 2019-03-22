@@ -4318,6 +4318,12 @@ body {
     font-family: Arial;
 }
 
+header.auth-page {
+    background: #000;
+    justify-content: center;
+    padding: 10px 0;
+}
+
 .page-auth h4 {
     text-align: center;
     margin-top: 40px;
@@ -4328,6 +4334,6 @@ body {
 }
 
 .page-auth .form-group-orgname .icon-check {
-    
+
 }
 

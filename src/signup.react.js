@@ -41,84 +41,91 @@ function signupForm ( setOrgnameAvailability, orgnameAvailability, messageCenter
         const orgnameIcon = orgnameAvailability;
 
         return (
-            <div className="container grid-lg page-auth page-signup">
-                { messageCenter.visible && (
-                    <div className={ `toast ${ messageCenter.type }` }>
-                        <button className="btn btn-clear float-right" onClick={ hideMessageCenter( updateStore ) } />
-                        { messageCenter.message }
-                    </div>
-                ) }
-                <div className="columns">
-                    <div className="column col-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 col-mx-auto">
-                        <h4>Signup</h4>
-                        <form onSubmit={ handleSubmit } autoComplete="on">
-                            <div className={ `form-group form-group-orgname ${ orgNameErrorClass }` }>
-                                <label
-                                    className="form-label"
-                                    htmlFor="org-name"
-                                />
-                                <div className="input-group has-icon-right">
-                                    <span className="input-group-addon">reservr.com/</span>
+            <div>
+                <header className="navbar auth-page">
+                    <section className="navbar-center">
+                        <img src="/images/logo-white-small.png" alt="" />
+                    </section>
+                </header>
+                <div className="container grid-lg page-auth page-signup">
+                    { messageCenter.visible && (
+                        <div className={ `toast ${ messageCenter.type }` }>
+                            <button className="btn btn-clear float-right" onClick={ hideMessageCenter( updateStore ) } />
+                            { messageCenter.message }
+                        </div>
+                    ) }
+                    <div className="columns">
+                        <div className="column col-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 col-mx-auto">
+                            <h4>Signup</h4>
+                            <form onSubmit={ handleSubmit } autoComplete="on">
+                                <div className={ `form-group form-group-orgname ${ orgNameErrorClass }` }>
+                                    <label
+                                        className="form-label"
+                                        htmlFor="org-name"
+                                    />
+                                    <div className="input-group has-icon-right">
+                                        <span className="input-group-addon">reservr.com/</span>
+                                        <input
+                                            className="form-input"
+                                            id="org-name"
+                                            type="text"
+                                            name="orgName"
+                                            onChange={ handleChange }
+                                            onBlur={ customHandleBlur( handleBlur, setOrgnameAvailability ) }
+                                            value={ values.orgName }
+                                            placeholder="funny-bakers"
+                                        />
+                                        { orgnameIcon && ( <i className={ `form-icon ${ orgnameIcon }` } /> ) }
+                                    </div>
+                                    {orgNameError && ( <p className="form-input-hint">{ errors.orgName }</p> )}
+                                </div>
+
+                                <div className={ `form-group ${ userNameErrorClass }` }>
+                                    <label
+                                        className="form-label"
+                                        htmlFor="email"
+                                    >
+                                    Email:
+                                    </label>
                                     <input
                                         className="form-input"
-                                        id="org-name"
-                                        type="text"
-                                        name="orgName"
+                                        id="email"
+                                        type="email"
+                                        name="username"
                                         onChange={ handleChange }
-                                        onBlur={ customHandleBlur( handleBlur, setOrgnameAvailability ) }
-                                        value={ values.orgName }
-                                        placeholder="funny-bakers"
+                                        onBlur={ handleBlur }
+                                        value={ values.username }
+                                        autoComplete="email"
                                     />
-                                    { orgnameIcon && ( <i className={ `form-icon ${ orgnameIcon }` } /> ) }
+                                    {userNameError && ( <p className="form-input-hint">{ errors.username }</p> )}
                                 </div>
-                                {orgNameError && ( <p className="form-input-hint">{ errors.orgName }</p> )}
-                            </div>
 
-                            <div className={ `form-group ${ userNameErrorClass }` }>
-                                <label
-                                    className="form-label"
-                                    htmlFor="email"
-                                >
-                                    Email:
-                                </label>
-                                <input
-                                    className="form-input"
-                                    id="email"
-                                    type="email"
-                                    name="username"
-                                    onChange={ handleChange }
-                                    onBlur={ handleBlur }
-                                    value={ values.username }
-                                    autoComplete="email"
-                                />
-                                {userNameError && ( <p className="form-input-hint">{ errors.username }</p> )}
-                            </div>
-
-                            <div className="form-group">
-                                <label
-                                    className="form-label"
-                                    htmlFor="org-name"
-                                >
+                                <div className="form-group">
+                                    <label
+                                        className="form-label"
+                                        htmlFor="org-name"
+                                    >
                                     Password:
-                                </label>
-                                <input
-                                    className="form-input"
-                                    type="password"
-                                    name="password"
-                                    onChange={ handleChange }
-                                    onBlur={ handleBlur }
-                                    value={ values.password }
-                                    autoComplete="password"
-                                />
-                                {errors.password && touched.password && errors.password}
-                            </div>
-                            <div className="clearfix">
-                                <button type="submit" disabled={ isSubmitting } className="float-right btn btn-primary">
-                                    Submit
-                                </button>
-                                <Link to="/login" className="btn btn-link">Go to Login page</Link>
-                            </div>
-                        </form>
+                                    </label>
+                                    <input
+                                        className="form-input"
+                                        type="password"
+                                        name="password"
+                                        onChange={ handleChange }
+                                        onBlur={ handleBlur }
+                                        value={ values.password }
+                                        autoComplete="password"
+                                    />
+                                    {errors.password && touched.password && errors.password}
+                                </div>
+                                <div className="clearfix">
+                                    <button type="submit" disabled={ isSubmitting } className="float-right btn btn-primary">
+                                        Submit
+                                    </button>
+                                    <Link to="/login" className="btn btn-link">Go to Login page</Link>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -192,6 +199,7 @@ function getSlug( orgname ) {
 function onSubmit( history, updateStore ) {
     return ( values, { setSubmitting } ) => {
         const data = Object.assign( {}, { userType: "admin" }, values );
+        console.log( data );
         ApiService.signup( data ).then( () => {
             setSubmitting( false );
             updateStore( "isLoggedIn", true );

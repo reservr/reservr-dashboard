@@ -8,6 +8,11 @@ const checkOrgNameAvailability = ( orgname ) => {
     return fetchWrapper( url );
 };
 
+const getOrg = () => {
+    const url = `${ baseUrl }/orgs`;
+    return fetchWrapper( url );
+};
+
 const login = ( values ) => {
     const url = `${ baseUrl }/login`;
     const options = {
@@ -36,4 +41,5 @@ export default {
     login,
     signup,
     logout,
+    getOrg,
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import ApiService from "./services/apiService";
 import withStore from "./decorators/withStore";
 
@@ -28,55 +28,66 @@ function loginForm ( props ) {
     } = props;
 
     return (
-        <div className="container grid-lg page-auth page-login">
-            <div className="columns">
-                <div className="column col-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 col-mx-auto">
-                    <h4>Login</h4>
-                    <form onSubmit={ handleSubmit } autoComplete="on">
-                        <div className="form-group">
-                            <label
-                                assName="form-label"
-                                htmlFor="email"
-                            >
+        <div>
+            <header className="navbar auth-page">
+                <section className="navbar-center">
+                    <img src="/images/logo-white-small.png" alt="" />
+                </section>
+            </header>
+            <div className="container grid-lg page-auth page-login">
+                <div className="columns">
+                    <div className="column col-4 col-lg-5 col-md-6 col-sm-8 col-xs-12 col-mx-auto">
+                        <h4>Login</h4>
+                        <form onSubmit={ handleSubmit } autoComplete="on">
+                            <div className="form-group">
+                                <label
+                                    className="form-label"
+                                    htmlFor="email"
+                                >
                                 Email
-                            </label>
-                            <input
-                                id="email"
-                                type="email"
-                                name="username"
-                                className="form-input"
-                                onChange={ handleChange }
-                                onBlur={ handleBlur }
-                                value={ values.username }
-                                autoComplete="email"
-                            />
-                            {errors.username && touched.username && errors.username}
-                        </div>
-                        <div className="form-group">
-                            <label
-                                className="form-label"
-                                htmlFor="password"
-                            >
+                                </label>
+                                <input
+                                    id="email"
+                                    type="email"
+                                    name="username"
+                                    className="form-input"
+                                    onChange={ handleChange }
+                                    onBlur={ handleBlur }
+                                    value={ values.username }
+                                    autoComplete="email"
+                                />
+                                {errors.username && touched.username && errors.username}
+                            </div>
+                            <div className="form-group">
+                                <label
+                                    className="form-label"
+                                    htmlFor="password"
+                                >
                                 Password
-                            </label>
-                            <input
-                                id="password"
-                                className="form-input"
-                                type="password"
-                                name="password"
-                                onChange={ handleChange }
-                                onBlur={ handleBlur }
-                                value={ values.password }
-                                autoComplete="password"
-                            />
-                            {errors.password && touched.password && errors.password}
-                        </div>
-                        <button type="submit" disabled={ isSubmitting } className="btn btn-primary">
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div>{/* .columns */}
+                                </label>
+                                <input
+                                    id="password"
+                                    className="form-input"
+                                    type="password"
+                                    name="password"
+                                    onChange={ handleChange }
+                                    onBlur={ handleBlur }
+                                    value={ values.password }
+                                    autoComplete="password"
+                                />
+                                {errors.password && touched.password && errors.password}
+                            </div>
+                            <div className="clearfix">
+                                <button type="submit" disabled={ isSubmitting } className="btn btn-primary float-right">
+                                    Submit
+                                </button>
+                                <Link to="/signup" className="btn btn-link">Go to Signup page</Link>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>{/* .columns */}
+            </div>
         </div>
     );
 }
