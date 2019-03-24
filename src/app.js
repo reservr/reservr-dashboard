@@ -7,7 +7,7 @@ import Dashboard from "./dashboard.react";
 import Events from "./events.react";
 import Reservations from "./reservations.react";
 import withAuthentication from "./decorators/withAuthentication";
-import withStore from "./decorators/withStore";
+// import withStore from "./decorators/withStore";
 import "../node_modules/spectre.css/dist/spectre-icons.css";
 import "../node_modules/spectre.css/dist/spectre.css";
 import "./styles.css";
@@ -23,8 +23,4 @@ const App = () => (
     </div>
 );
 
-const mapStoreToProps = ( store ) => ( {
-    messageCenter: store.getMessageCenter(),
-} );
-
-export default withStore( mapStoreToProps )( App );
+export default App;
