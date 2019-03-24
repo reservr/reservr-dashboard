@@ -3,12 +3,7 @@ import { Link } from "react-router-dom";
 import withStore from "./decorators/withStore";
 import apiService from "./services/apiService";
 
-const Dashboard = () => {
-    if ( typeof window !== "undefined" ) {
-        apiService.getOrg().then( ( org ) => {
-            console.log( org );
-        } );
-    }
+function Dashboard () {
     return (
         <div>
             <header className="navbar">
@@ -36,7 +31,7 @@ const Dashboard = () => {
 
         </div>
     );
-};
+}
 
 function handleOnClick() {
     return () => apiService.logout().then( () => {

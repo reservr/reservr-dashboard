@@ -13,6 +13,11 @@ const getOrg = () => {
     return fetchWrapper( url );
 };
 
+const getUser = () => {
+    const url = `${ baseUrl }/users`;
+    return fetchWrapper( url );
+};
+
 const login = ( values ) => {
     const url = `${ baseUrl }/login`;
     const options = {
@@ -42,4 +47,5 @@ export default {
     signup,
     logout,
     getOrg,
+    getUser,
 };

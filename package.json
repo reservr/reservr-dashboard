@@ -33,6 +33,7 @@
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.0",
     "@babel/register": "^7.0.0",
     "cookie-parser": "^1.4.4",
     "es6-promise": "^4.2.6",
