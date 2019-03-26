@@ -1,7 +1,9 @@
 export default function createStore() {
     const state = {
         isLoggedIn: false,
-        user: {},
+        user: {
+            username: "",
+        },
         org: {},
         messageCenter: {
             visible: false,
