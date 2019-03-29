@@ -4,8 +4,7 @@ import HomePage from "./homepage.react";
 import Signup from "./signup.react";
 import Login from "./login.react";
 import Dashboard from "./dashboard.react";
-import Events from "./events.react";
-import Reservations from "./reservations.react";
+
 import withAuthentication from "./decorators/withAuthentication";
 // import withStore from "./decorators/withStore";
 import "../node_modules/spectre.css/dist/spectre-icons.css";
@@ -13,13 +12,11 @@ import "../node_modules/spectre.css/dist/spectre.css";
 import "./styles.css";
 
 const App = () => (
-    <div>
+    <div className="app-root">
         <Route path="/" exact component={ HomePage } />
-        <Route path="/signup" exact component={ Signup } />
-        <Route path="/login" exact component={ Login } />
-        <Route path="/dashboard" exact component={ withAuthentication( Dashboard ) } />
-        <Route path="/dashboard/events" exact component={ withAuthentication( Events ) } />
-        <Route path="/dashboard/reservations" exact component={ withAuthentication( Reservations ) } />
+        <Route path="/signup" component={ Signup } />
+        <Route path="/login" component={ Login } />
+        <Route path="/dashboard" component={ withAuthentication( Dashboard ) } />
     </div>
 );
 

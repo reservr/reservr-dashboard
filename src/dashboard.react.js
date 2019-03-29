@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
+import Events from "./events.react";
+import Reservations from "./reservations.react";
 import withStore from "./decorators/withStore";
 import apiService from "./services/apiService";
 
@@ -17,32 +19,31 @@ function Dashboard( props ) {
     }, [] );
 
     return (
-        <div>
-            <header className="navbar">
-                <section className="navbar-section">
-                    <span>welcome { props.user.username }</span>
-                    <Link to="/dashboard" className="navbar-brand mr-2">Dashboard</Link>
-                    <Link to="/dashboard/events" className="mr-2">Events</Link>
-                    <Link to="/dashboard/reservations" className="mr-2">Reservations</Link>
-                </section>
-                <section className="navbar-section">
-                    <button className="btn btn-primary btn-sm" onClick={ handleOnClick() }>
-                        <i className="icon icon-shutdown" /> Log out
-                    </button>
-                </section>
+        <div className="container-dashboard">
+            <header>
+                <Link className="branding" to="/">reservr</Link>
+                <Link className="nav-link log-out" to="/" onClick={ handleOnClick }>
+                    <i className="icon icon-shutdown" /> Log out
+                </Link>
             </header>
-            <div className="empty">
-                <div className="empty-icon">
-                    <i className="icon icon-people" />
-                </div>
-                <p className="empty-title h5">You have no new messages { props.org.name }</p>
-                <p className="empty-subtitle">Click the button to start a conversation.</p>
-                <div className="empty-action">
-                    <button className="btn btn-primary">Send a message</button>
-                </div>
+            <div className="content">
+                <aside>
+                    <ul className="nav">
+                        <li><Link to="/dashboard/events">Events</Link></li>
+                        <li><Link to="/dashboard/organization">Organization settings</Link></li>
+                    </ul>
+                </aside>
+                <section>
+                    <div className="section-wrapper">
+                        <Switch>
+                            <Route path="/dashboard/events" exact component={ Events } />
+                            <Route path="/reservations" exact component={ Reservations } />
+                        </Switch>
+                    </div>
+                </section>
             </div>
-
         </div>
+
     );
 }
 

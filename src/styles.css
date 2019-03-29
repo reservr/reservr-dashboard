@@ -1,6 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body,
+.react-root,
+.app-root,
+.container-dashboard {
+    height: 100%;
+}
+
 body {
     font-size: 16px;
     font-family: Arial;
+    margin: 0;
 }
 
 header.auth-page {
@@ -20,4 +32,62 @@ header.auth-page {
 
 .page-auth .form-group-orgname .icon-check {
 
+}
+
+.container-dashboard {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-dashboard .container {
+    flex-grow: 1;
+}
+
+.container-dashboard header {
+    background: #222;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.container-dashboard .branding {
+    display: inline-block;
+    text-indent: -10000px;
+    background: url("/images/reservr-logo-white-2.svg") 0 0 no-repeat;
+    width: 175px;
+    height: 40px;
+}
+
+.container-dashboard header .nav-link {
+    color: #FFF;
+    margin: 6px 0 0 0;
+}
+
+.container-dashboard .container {
+    background: #f7f8f9;
+}
+
+.container-dashboard .content {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-dashboard .content aside {
+    padding: 20px;
+    width: 200px;
+    background: #f6f6f6;
+}
+
+.container-dashboard .content section {
+    background: #f6f6f6;
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.container-dashboard .content section .section-wrapper {
+    background: #FFF;
+    border-radius: 5px;
+    padding: 20px;
+    height: 100%;
 }

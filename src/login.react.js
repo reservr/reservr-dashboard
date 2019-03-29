@@ -31,7 +31,7 @@ function loginForm ( props ) {
         <div>
             <header className="navbar auth-page">
                 <section className="navbar-center">
-                    <img src="/images/logo-white-small.png" alt="" />
+                    <img src="/images/reservr-logo-white.svg" alt="" />
                 </section>
             </header>
             <div className="container grid-lg page-auth page-login">
