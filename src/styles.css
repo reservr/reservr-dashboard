@@ -55,12 +55,11 @@ header.auth-page {
     text-indent: -10000px;
     background: url("/images/reservr-logo-white-2.svg") 0 0 no-repeat;
     width: 175px;
-    height: 40px;
+    height: 26px;
 }
 
 .container-dashboard header .nav-link {
     color: #FFF;
-    margin: 6px 0 0 0;
 }
 
 .container-dashboard .container {
