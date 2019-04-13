@@ -8,7 +8,7 @@ import App from "./src/app";
 import StoreContext from "./src/common/storeContext";
 import createStore from "./src/services/store";
 
-const PORT = 8082;
+const PORT = 9000;
 const app = express( );
 app.use( express.static( `${ __dirname }/dist` ) );
 app.use( cookieParser() );
