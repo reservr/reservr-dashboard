@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import Events from "./events.react";
+import CreateEvent from "./createEvent.react";
 import Reservations from "./reservations.react";
 import withStore from "./decorators/withStore";
 import apiService from "./services/apiService";
@@ -37,6 +38,7 @@ function Dashboard( props ) {
                     <div className="section-wrapper">
                         <Switch>
                             <Route path="/dashboard/events" exact component={ Events } />
+                            <Route path="/dashboard/events/create-event" exact component={ CreateEvent } />
                             <Route path="/reservations" exact component={ Reservations } />
                         </Switch>
                     </div>
