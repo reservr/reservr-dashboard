@@ -1,7 +1,7 @@
 import fetchWrapper from "../helpers/fetchWrapper";
 // import responseHelper from "./responseHelper";
 
-const baseUrl = process.NODE_ENV === "production" ? "http://reservr-staging.reservr.net/api" : "http://localhost:8080";
+const baseUrl = process.envNODE_ENV === "production" ? "http://reservr-staging.reservr.net/api" : "http://localhost:8080";
 
 const checkOrgNameAvailability = ( orgname ) => {
     const url = `${ baseUrl }/orgs?slug=${ orgname }`;
