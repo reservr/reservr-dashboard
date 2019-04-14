@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon NODE_ENV=development index.js",
     "build-production": "NODE_ENV=production webpack --progress",
-    "compile": "webpack --watch --info-verbosity verbose",
+    "compile": "NODE_ENV=development webpack --watch --info-verbosity verbose",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
