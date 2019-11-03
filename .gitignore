@@ -3,3 +3,5 @@ dist
 Makefile
 deploy
 .env
+staging
+deploy.yml
